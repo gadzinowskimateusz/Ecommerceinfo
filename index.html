@@ -60,9 +60,8 @@
   .masthead{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:60;
     transition:box-shadow .2s ease}
   .masthead.scrolled{box-shadow:0 6px 24px -16px rgba(20,17,14,.6)}
-  .masthead.scrolled .wrap{padding-top:11px;padding-bottom:11px}
   .masthead .progress{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--hivis);z-index:2}
-  .masthead .wrap{display:flex;align-items:center;gap:26px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap;transition:padding .2s ease}
+  .masthead .wrap{display:flex;align-items:center;gap:26px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap}
   .brand{display:flex;align-items:baseline;gap:12px}
   .brand .mark{
     font-family:"Archivo",sans-serif;font-weight:900;font-size:1.7rem;letter-spacing:-.02em;
@@ -134,7 +133,7 @@
 
   /* ---------- CONTROLS ---------- */
   .news-block{position:relative}
-  .controls{position:sticky;top:var(--navh,60px);z-index:40;background:var(--paper);
+  .controls{position:sticky;top:calc(var(--navh,60px) - 1px);z-index:40;background:var(--paper);
     padding-top:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
   .controls .bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between}
   .filters{display:flex;gap:8px;flex-wrap:wrap}
@@ -803,6 +802,7 @@ document.querySelectorAll("[data-jump]").forEach(a=>{
   function req(){ if(!ticking){ ticking=true; requestAnimationFrame(()=>{ onScroll(); ticking=false; }); } }
   window.addEventListener("scroll", req, {passive:true});
   window.addEventListener("resize", ()=>{ setNavH(); req(); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{ setNavH(); onScroll(); });
   setNavH(); onScroll();
 })();
 
